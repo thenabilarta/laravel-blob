@@ -10,7 +10,14 @@
   Welcome to Xibo
   @foreach($xibo as $x)
     <p>{{ $x["name"] }}</p>
-    <img src="{{ 'data:image/jpeg;base64, ' . base64_encode($x['image']) }}" alt="" style="width: 300px;">
+    {{-- <img src="{{ 'data:image/jpeg;base64, ' . base64_encode($x['image']) }}" alt="" style="width: 300px;"> --}}
+    <img src="{{ 'storage/' . $x["image"] }}" alt="" style="width: 300px">
   @endforeach
+  
+  <form action="/store" method="post" enctype="multipart/form-data">
+    @csrf
+    <input type="file" name="file" id="file">
+    <button type="submit">Upload</button>
+  </form>
 </body>
 </html>

@@ -16,7 +16,7 @@ class CreateXibosTable extends Migration
         Schema::create('xibos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->binary('image');
+            $table->string('image');
             $table->timestamps();
         });
     }
