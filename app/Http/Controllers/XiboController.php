@@ -8,7 +8,7 @@ use GuzzleHttp\Client;
 
 class XiboController extends Controller
 {
-    public $access_token = 'xW4Xhux9YQFeRiI3EqJu9OWfSK5CVXPRS0uOcB0T';
+    public $access_token = 'NKIM1mYfspiKX2H2qqXB6ncAvqbeKiXwo3w5XRys';
 
     public function index()
     {
@@ -60,14 +60,16 @@ class XiboController extends Controller
 
     public function store(Request $request)
     {
-        $imagePath = request('file')->store('uploads', 'public');
-
         $file = $request->files->get('file');
 
         $fileName = $file->getClientOriginalName();
 
+        $imagePath = request('file')->store('uploads', 'public');
+
+        $imageName = explode("/", $imagePath);
+
         $form_data = array(
-            'name' => $fileName,
+            'name' => $imageName[1],
             'image' => $imagePath
         );
 
@@ -110,5 +112,12 @@ class XiboController extends Controller
         // $content = json_decode($contents, true);
 
         return redirect('/');
+    }
+
+    public function edit($id)
+    {
+        $xibo = Xibo::findOrFail($id);
+
+        return view('xibo.edit', compact('xibo'));
     }
 }

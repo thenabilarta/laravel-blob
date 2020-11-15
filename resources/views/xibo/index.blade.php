@@ -8,7 +8,9 @@
 </head>
 <body>
   Welcome to Xibo
+  <br>
   @foreach($xibo as $x)
+    <a href="/edit/{{ $x["id"] }}">Edit</a>
     <p>{{ $x["name"] }}</p>
     {{-- <img src="{{ 'data:image/jpeg;base64, ' . base64_encode($x['image']) }}" alt="" style="width: 300px;"> --}}
     <img src="{{ 'storage/' . $x["image"] }}" alt="" style="width: 300px">
