@@ -8,7 +8,7 @@ use GuzzleHttp\Client;
 
 class XiboController extends Controller
 {
-    public $access_token = 'NKIM1mYfspiKX2H2qqXB6ncAvqbeKiXwo3w5XRys';
+    public $access_token = '1wYfcA9fVdoerayUvCOXtujMcG5S7ALD9STLdkf8';
 
     public function index()
     {
@@ -69,7 +69,8 @@ class XiboController extends Controller
         $imageName = explode("/", $imagePath);
 
         $form_data = array(
-            'name' => $imageName[1],
+            'image_database_name' => $imageName[1],
+            'image_name' => $fileName,
             'image' => $imagePath
         );
 
@@ -119,5 +120,28 @@ class XiboController extends Controller
         $xibo = Xibo::findOrFail($id);
 
         return view('xibo.edit', compact('xibo'));
+    }
+
+    public function editstore(Request $request)
+    {
+        $client = new Client(['base_uri' => 'http://192.168.1.5']);
+
+        $headers = [
+            'Authorization' => 'Bearer ' . $this->access_token,
+            'Content-Type' => 'application/x-www-form-urlencoded'
+        ];
+
+        $formparams = [
+            'name' => 'jambusetan.jpg',
+            'duration' => '10',
+            'retired' => '0',
+            'tags' => '0',
+            'updateInLayouts' => '0'
+        ];
+
+        $response = $client->request('PUT', '/xibo-cms/web/api/library/20', [
+            'headers' => $headers,
+            'form_params' => $formparams
+        ]);
     }
 }

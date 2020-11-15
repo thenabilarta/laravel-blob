@@ -14,5 +14,6 @@
 Route::get('/', 'XiboController@index');
 Route::get('/media', 'XiboController@media');
 Route::get('/image', 'XiboController@image');
+Route::post('/edit/store', 'XiboController@editstore');
 Route::get('/edit/{id}', 'XiboController@edit');
 Route::post('/store', 'XiboController@store');
